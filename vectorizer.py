@@ -79,7 +79,7 @@ def parseOutText(f):
 
 ff = open("../text_learning/test_email.txt", "r")
 text = parseOutText(ff)
-print text
+#print text
 
 
 # `temp_counter` is a way to speed up the development--there are thousands of emails from Sara and Chris, so running over all of them can take a long time. `temp_counter` helps you only look at the first 200 emails in the list so you can iterate your modifications quicker
@@ -88,6 +88,7 @@ print text
 
 temp_counter = 1
 
+print "processing emails"
 
 for name, from_person in [("sara", from_sara), ("chris", from_chris)]:   
     for path in from_person:
@@ -107,7 +108,7 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             text = parseOutText(email)
 
             ### use str.replace() to remove any instances of the words
-            replaceWords = ["sara", "shackleton", "sshacklensf", "chris", "germani"]
+            replaceWords = ["sara", "shackleton", "sshacklensf", "cgermannsf", "chris", "germani"]
             for word in replaceWords:
                 text = text.replace(word, '')
                 
@@ -125,35 +126,12 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             email.close()
 
 print "emails processed"
+from_sara.close()
+from_chris.close()
+
+pickle.dump( word_data, open("your_word_data.pkl", "w") )
+pickle.dump( from_data, open("your_email_authors.pkl", "w") )
 
 
-# In[ ]:
 
-len(word_data)
-
-
-# ## TfIdf 
-# - Tf Term Frequency
-# - Idf Inverse document frequency
-
-# In[ ]:
-
-from sklearn.feature_extraction.text import TfidfVectorizer
-
-vectorizer = TfidfVectorizer(stop_words="english",lowercase=True)
-bag_of_words = vectorizer.fit(word_data)
-
-
-# ### How many different words are there?
-
-# In[ ]:
-
-len(vectorizer.get_feature_names())
-
-
-# #### What is word number 34597 in your TfIdf?
-
-# In[ ]:
-
-vectorizer.get_feature_names()[34597]
 
